@@ -1,23 +1,15 @@
 import xmltodict
-import logging
-import MongoUtils
-import OracleUtils
+import Util.Log as Log
+from Databases import MongoUtils, OracleUtils
 
-# {'ID', 'UN_DOCS', 'LEX_TYPE_CITY_B', 'SURNAME_BEL', 'IDENTIF', 'UN_INSURANCE', 'LEX_CITIZENSHIP',
+# { 'UN_DOCS', 'LEX_TYPE_CITY_B', 'SURNAME_BEL', 'IDENTIF', 'UN_INSURANCE', 'LEX_CITIZENSHIP',
 # 'UN_SALARY', 'SID', 'AREA_B', 'UN_ADDRESS_TEMP', 'UN_COURT4', 'UN_PENSION', 'NAME_BEL', 'UN_COURT2',
 # 'UN_SCIENCE_DEGREE', 'NAME', 'C_SEX', 'SURNAME', '@ID', 'C_CITIZENSHIP', 'REGION_B', 'SNAME_BEL',
 # 'T_SEX', 'UN_FSZN', 'T_COUNTRY_B', 'UN_COURT3', 'C_COUNTRY_B', 'UN_EDUCATION', 'UN_FAMILY', 'SNAME',
 # 'UN_UNEMPLOYMENT', 'C_TYPE_CITY_B', 'BIRTH_DATE', 'LEX_SEX', 'UN_ADDRESS', 'T_CITIZENSHIP', 'CITY_B',
 # 'UN_SCIENCE_RANG', 'LEX_COUNTRY_B', 'T_TYPE_CITY_B'}
 
-logger = logging.getLogger('simple_example')
-logger.setLevel(logging.DEBUG)
 
-ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-ch.setFormatter(formatter)
-logger.addHandler(ch)
 
 def get_xml(file_name):
     """
@@ -29,14 +21,14 @@ def get_xml(file_name):
     except ImportError:
         import xml.etree.cElementTree as etree
     tree = etree.parse(file_name)
-    logger.info('file uploaded')
+    Log.logger.info('file uploaded')
     client = MongoUtils.get_database()
-    logger.info('connected to nongo')
+    Log.logger.info('connected to nongo')
     for person in tree.findall('UN_PERSON'):
         o = (xmltodict.parse(etree.tostring(person)))
         o1 = generate_new_structure(o['UN_PERSON'])
         id = MongoUtils.insert_document(client, o1)
-        logger.info('Загружен пользователь %s ', )
+        Log.logger.info('Загружен пользователь %s ', )
 
 
 def generate_new_structure(document):
@@ -69,11 +61,11 @@ def get_work(document):
     new_document = []
     if isinstance(document, list):
         for x in document:
-            logger.debug(x)
+            Log.logger.debug(x)
             new_document.append(get_work_by_element(x))
     elif isinstance(document, dict):
         new_document.append(get_work_by_element(document))
-    logger.info(new_document)
+    Log.logger.info(new_document)
     return new_document
 
 
