@@ -29,11 +29,14 @@ def get_xml(file_name):
     except ImportError:
         import xml.etree.cElementTree as etree
     tree = etree.parse(file_name)
+    logger.info('file uploaded')
     client = MongoUtils.get_database()
+    logger.info('connected to nongo')
     for person in tree.findall('UN_PERSON'):
         o = (xmltodict.parse(etree.tostring(person)))
         o1 = generate_new_structure(o['UN_PERSON'])
         id = MongoUtils.insert_document(client, o1)
+        logger.info('Загружен пользователь %s ', )
 
 
 def generate_new_structure(document):
