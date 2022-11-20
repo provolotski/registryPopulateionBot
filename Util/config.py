@@ -11,6 +11,10 @@ oracle_sid = 'sid'
 oracle_user = 'user'
 oracle_password = '**********'
 
+mongo_host  = 'localhost'
+mongo_port = 27017
+mongo_database = 'Mongo_database'
+mongo_collection = 'mongo_collection'
 
 
 def get_config(file_Name):
@@ -54,3 +58,14 @@ def init_values():
     global oracle_password
     oracle_password = get_props(config,'ORACLE','ORACLE_PASSWORD',oracle_password)
 
+    global mongo_host
+    mongo_host = get_props(config, 'MONGO', 'MONGO_HOST', mongo_host)
+
+    global mongo_port
+    mongo_port = get_props(config, 'MONGO', 'MONGO_PORT', mongo_port)
+
+    global mongo_database
+    mongo_database = get_props(config, 'MONGO', 'MONGO_DATABASE', mongo_database)
+
+    global mongo_collection
+    mongo_collection = get_props(config, 'MONGO', 'MONGO_COLLECTION', mongo_collection)

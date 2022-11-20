@@ -1,3 +1,11 @@
+import os
+
+import Util.config
+import Util.Log
 import XmlLoader
+import Databases.OracleUtils
+
 if __name__ == '__main__':
-    XmlLoader.get_xml("d:\projects\Перепись\Регистр населения\Регистр населения\RN_1.xml" )
+    Util.config.init_values()
+    Util.Log.logger.debug(os.environ['FILE'])
+    XmlLoader.get_xml(os.environ['FILE'])
