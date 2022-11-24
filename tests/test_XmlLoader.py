@@ -13,5 +13,5 @@ def test_get_work():
     assert True
 
 def test_config():
-    print (conf.oracle_user)
+    print (conf.ORACLE_USER)
     assert True

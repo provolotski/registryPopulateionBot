@@ -1,11 +1,17 @@
 import os
 
 import Util.config
-import Util.Log
+import Util.log
 import XmlLoader
-import Databases.OracleUtils
+from Databases import MongoUtils
+
+files = ['']
 
 if __name__ == '__main__':
     Util.config.init_values()
-    Util.Log.logger.debug(os.environ['FILE'])
-    XmlLoader.get_xml(os.environ['FILE'])
+    folder = os.environ['DIR']
+    Util.config.set_log_level()
+    for i in range(1, 14):
+        XmlLoader.get_xml("{0}RN_{1}.xml".format(folder, str(i)))
+    for i in range(1, 5):
+        MongoUtils.check_relative(i)

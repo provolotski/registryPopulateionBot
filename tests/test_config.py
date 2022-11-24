@@ -7,7 +7,6 @@ def test_set_log_level():
 
 
 def test_get_props():
-    config = ''
     print(Util.config.get_props('', 'Application', 'LogLevel', 'DEBUG'))
-    print(Util.config.get_props(Util.config.get_config(Util.config.config_file_name),'ORACLE','host','127.0.0.1'))
+    print(Util.config.get_props(Util.config.get_config(Util.config.CONFIG_FILE_NAME), 'ORACLE', 'host', '127.0.0.1'))
     assert True

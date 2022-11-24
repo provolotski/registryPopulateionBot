@@ -1,5 +1,8 @@
-import os
-
 import redis
+import Util.config as config
 
-pool  = redis.ConnectionPool(host = os.environ['RedisServer'], port = os.environ['RedisPort'], db = 0)
+def connect():
+    pool = redis.ConnectionPool(host=config.REDIS_HOST, port=config.REDIS_PORT, db=config.REDIS_DB)
+    return redis.Redis(connection_pool=pool)
+
+

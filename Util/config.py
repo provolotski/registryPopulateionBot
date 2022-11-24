@@ -1,29 +1,33 @@
 import configparser
-import Util.Log as log
+import Util.log as log
 import os
 
-logLevel = 'DEBUG'
-config_file_name = '/home/kpss/projects/python/registryPopulateionBot/Util/config.ini'
+LOGLEVEL = 'DEBUG'
+CONFIG_FILE_NAME = 'D:\\projects\\python\\registryPopulateionBot\\Util\\config.ini'
 
-oracle_host = '127.0.0.1'
-oracle_port = 1521
-oracle_sid = 'sid'
-oracle_user = 'user'
-oracle_password = '**********'
+ORACLE_HOST = '127.0.0.1'
+ORACLE_PORT = 1521
+ORACLE_SID = 'sid'
+ORACLE_USER = 'user'
+ORACLE_PASSWORD = '**********'
 
-mongo_host  = 'localhost'
-mongo_port = 27017
-mongo_database = 'Mongo_database'
-mongo_collection = 'mongo_collection'
+MONGO_HOST = 'localhost'
+MONGO_PORT = 27017
+MONGO_DATABASE = 'Mongo_database'
+MONGO_COLLECTION = 'mongo_collection'
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
 
 
-def get_config(file_Name):
+def get_config(file_name):
     config = configparser.ConfigParser()
-    config.read(file_Name)
+    config.read(file_name)
     return config
 
 
-def get_props(config,section,option,default):
+def get_props(config, section, option, default):
     result = default
     if option in os.environ:
         log.logging.info('get option : ' + option + ' from environment')
@@ -37,35 +41,46 @@ def get_props(config,section,option,default):
             log.logging.info('congif : ' + option + ' is empty')
     return result
 
+
 def set_log_level():
-    log.user__set_level(get_props(get_config(config_file_name),'Application','LogLevel','DEBUG'))
+    log.user_set_level(get_props(get_config(CONFIG_FILE_NAME), 'Application', 'LogLevel', 'DEBUG'))
+
 
 def init_values():
-    config = get_config(config_file_name)
+    config = get_config(CONFIG_FILE_NAME)
 
-    global oracle_host
-    oracle_host = get_props(config,'ORACLE','ORACLE_HOST', oracle_host)
+    global ORACLE_HOST
+    ORACLE_HOST = get_props(config, 'ORACLE', 'ORACLE_HOST', ORACLE_HOST)
 
-    global oracle_port
-    oracle_port = get_props(config,'ORACLE','ORACLE_PORT', oracle_port)
+    global ORACLE_PORT
+    ORACLE_PORT = get_props(config, 'ORACLE', 'ORACLE_PORT', ORACLE_PORT)
 
-    global oracle_sid
-    oracle_sid = get_props(config,'ORACLE','ORACLE_SID',oracle_sid)
+    global ORACLE_SID
+    ORACLE_SID = get_props(config, 'ORACLE', 'ORACLE_SID', ORACLE_SID)
 
-    global oracle_user
-    oracle_user = get_props(config,'ORACLE','ORACLE_USER',oracle_user)
+    global ORACLE_USER
+    ORACLE_USER = get_props(config, 'ORACLE', 'ORACLE_USER', ORACLE_USER)
 
-    global oracle_password
-    oracle_password = get_props(config,'ORACLE','ORACLE_PASSWORD',oracle_password)
+    global ORACLE_PASSWORD
+    ORACLE_PASSWORD = get_props(config, 'ORACLE', 'ORACLE_PASSWORD', ORACLE_PASSWORD)
 
-    global mongo_host
-    mongo_host = get_props(config, 'MONGO', 'MONGO_HOST', mongo_host)
+    global MONGO_HOST
+    MONGO_HOST = get_props(config, 'MONGO', 'MONGO_HOST', MONGO_HOST)
 
-    global mongo_port
-    mongo_port = get_props(config, 'MONGO', 'MONGO_PORT', mongo_port)
+    global MONGO_PORT
+    MONGO_PORT = get_props(config, 'MONGO', 'MONGO_PORT', MONGO_PORT)
 
-    global mongo_database
-    mongo_database = get_props(config, 'MONGO', 'MONGO_DATABASE', mongo_database)
+    global MONGO_DATABASE
+    MONGO_DATABASE = get_props(config, 'MONGO', 'MONGO_DATABASE', MONGO_DATABASE)
 
-    global mongo_collection
-    mongo_collection = get_props(config, 'MONGO', 'MONGO_COLLECTION', mongo_collection)
+    global MONGO_COLLECTION
+    MONGO_COLLECTION = get_props(config, 'MONGO', 'MONGO_COLLECTION', MONGO_COLLECTION)
+
+    global REDIS_HOST
+    REDIS_HOST = get_props(config, 'REDIS', 'REDIS_HOST', REDIS_HOST)
+
+    global REDIS_PORT
+    REDIS_PORT = get_props(config, 'REDIS', 'REDIS_PORT', REDIS_PORT)
+
+    global REDIS_DB
+    REDIS_DB = get_props(config, 'REDIS', 'REDIS_DB', REDIS_DB)

@@ -22,6 +22,7 @@ def test_connect_db():
 
 
 def test_get_work():
+    Util.config.init_values()
     assert OracleUtils.get_work(191519009) == 'ООО "ДАВКОЛДЕН"'
     json_object = json.loads(testXML)
     print(json_object)
